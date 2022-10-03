@@ -8,6 +8,8 @@ const getCardsData = (nrCards) => {
   return mergeCards;
 };
 
+let counter = 0;
+
 const randomizeCards = () => {
   const cards = getCardsData(8);
   cards.sort(() => Math.random() - 0.5);
@@ -17,6 +19,7 @@ const randomizeCards = () => {
 // Render cards
 const renderCards = (cardsList) => {
   const root = document.getElementById("root");
+  root.innerHTML = "";
   cardsList.forEach((element) => {
     root.appendChild(renderSingleCard(element.img, element.id));
   });
@@ -50,6 +53,7 @@ const checkClickedCard = (e) => {
   const flipedCards = document.querySelectorAll(".fliped");
 
   if (flipedCards.length === 2) {
+    counter++;
     if (
       flipedCards[0].getAttribute("card-id") ===
       flipedCards[1].getAttribute("card-id")
@@ -67,8 +71,19 @@ const checkClickedCard = (e) => {
       });
     }
   }
-
+  updateScore(counter);
   e.preventDefault();
 };
+const updateScore = (score) => {
+  const scoreElement = document.querySelector("#score");
+  scoreElement.textContent = score;
+};
 
+const restartBtn = document.getElementById("restart");
+restartBtn.addEventListener("click", (e) => {
+  renderCards(randomizeCards(8));
+  counter = 0;
+  updateScore(0);
+  e.preventDefault();
+});
 renderCards(randomizeCards(8));
