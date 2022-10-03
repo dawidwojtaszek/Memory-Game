@@ -27,7 +27,7 @@ const renderSingleCard = (imgUrl, id) => {
   const box = document.createElement("div");
   const back = document.createElement("div");
   back.classList = "back";
-  box.id = id;
+  box.setAttribute("card-id", id);
   box.classList = "card";
   const imgElement = document.createElement("img");
   imgElement.src = imgUrl;
@@ -36,9 +36,39 @@ const renderSingleCard = (imgUrl, id) => {
   box.appendChild(back);
   box.addEventListener("click", (e) => {
     box.classList.toggle("flip");
+    checkClickedCard(e);
     e.preventDefault();
   });
   return box;
+};
+
+//  Check cards match
+
+const checkClickedCard = (e) => {
+  const clickedCard = e.target.parentElement;
+  clickedCard.classList.add("fliped");
+  const flipedCards = document.querySelectorAll(".fliped");
+
+  if (flipedCards.length === 2) {
+    if (
+      flipedCards[0].getAttribute("card-id") ===
+      flipedCards[1].getAttribute("card-id")
+    ) {
+      console.log("match");
+      flipedCards.forEach((e) => {
+        e.classList.remove("fliped");
+        e.style.pointerEvents = "none";
+      });
+    } else {
+      console.log("wrong");
+      flipedCards.forEach((e) => {
+        e.classList.remove("fliped");
+        setTimeout(() => e.classList.remove("flip"), 700);
+      });
+    }
+  }
+
+  e.preventDefault();
 };
 
 renderCards(randomizeCards(8));
