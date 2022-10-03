@@ -1,0 +1,44 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #E2EBF3;
+}
+#root{
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 815px;
+    height: 815px;
+    gap: 5px;
+
+}
+.card{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    cursor: pointer;
+}
+.back, .front{
+    top:0;
+    left: 0;
+    width:200px;
+    height: 200px;
+    position: absolute;
+
+}
+.back{
+    background-color: #2E5077;
+    backface-visibility: hidden;
+}
+.front{
+    background-color: white;
+}
+.flip{
+    transform: rotateY(180deg);
+}

@@ -25,11 +25,20 @@ const renderCards = (cardsList) => {
 // Create Card Element
 const renderSingleCard = (imgUrl, id) => {
   const box = document.createElement("div");
+  const back = document.createElement("div");
+  back.classList = "back";
   box.id = id;
+  box.classList = "card";
   const imgElement = document.createElement("img");
   imgElement.src = imgUrl;
+  imgElement.classList = "front";
   box.appendChild(imgElement);
+  box.appendChild(back);
+  box.addEventListener("click", (e) => {
+    box.classList.toggle("flip");
+    e.preventDefault();
+  });
   return box;
 };
-console.log(randomizeCards());
+
 renderCards(randomizeCards(8));
